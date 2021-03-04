@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+  labels:
+    app: w3af
+    chart: w3af
+    release: w3af-security
+  name: w3af
+  namespace: security
+spec:
+  rules:
+  - host: security.localhost
+    http:
+      paths:
+      - backend:
+          serviceName: w3af
+          servicePort: 5000
+        path: "/"

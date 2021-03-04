@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: w3af
+    chart: w3af
+    release: w3af-security
+  name: w3af
+  namespace: security
+spec:
+  ports:
+  - name: first
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: w3af
+    release: w3af-security
+  sessionAffinity: None
+  type: ClusterIP

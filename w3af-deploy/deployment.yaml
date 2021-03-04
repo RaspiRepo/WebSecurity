@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: w3af
+    chart: w3af
+    release: w3af-security
+  name: w3af
+  namespace: security
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: w3af
+      release: w3af-security
+  template:
+    metadata:
+      labels:
+        app: w3af
+        release: w3af-security
+    spec:
+      containers:
+      - env:
+        envFrom: []
+        command:
+        - "/home/w3af/w3af/w3af_api"
+        image: andresriancho/w3af:v35-011a74f-develop
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 30
+          initialDelaySeconds: 120
+          tcpSocket:
+            port: 5000
+        name: w3af
+        readinessProbe:
+          tcpSocket:
+            port: 5000
